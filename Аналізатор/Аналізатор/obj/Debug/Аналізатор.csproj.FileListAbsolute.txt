@@ -4,3 +4,9 @@ c:\users\студент\documents\visual studio 2012\Projects\Аналізато
 c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csprojResolveAssemblyReference.cache
 c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.exe
 c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe.config
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\obj\Debug\Аналізатор.exe
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\bin\Debug\Аналізатор.pdb
+C:\Users\студент\Documents\GitHub\SAPR\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csprojResolveAssemblyReference.cache

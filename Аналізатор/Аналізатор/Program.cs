@@ -23,21 +23,25 @@ namespace Аналізатор
                 for (i=0;i<line.Length;i++)
                 {
                     subline += line[i];
+                    if (subline == " ") { subline = ""; continue; }
                     if (IsSeparator(subline)) 
                     {
                         if (i < line.Length - 1)
                         {
-                            if (IsSeparator(subline + line[i + 1]) && (line.Length > 2)) { i++; subline = ""; }
-                            else subline = "";
+                            if (IsSeparator(subline + line[i + 1]) && (line.Length > 2)) { i++; GetLexem(subline + line[i]); subline = ""; continue; }
+                            else { GetLexem(subline); subline = ""; continue; }
                         }
                     }
                     if ((i < line.Length - 1) && (subline != ""))
                     {
-                        if ((line.Length > 2) && IsSeparator(Convert.ToString(line[i + 1]))) subline = "";
+                        if ((line.Length > 2) && IsSeparator(Convert.ToString(line[i + 1]))) { GetLexem(subline); subline = ""; continue; }
                     }
-                    if ((i == line.Length - 1) && (subline != "")) subline = "";
+                    if ((i == line.Length - 1) && (subline != "")) { GetLexem(subline); subline = ""; continue; }
                 }
             }
+            Console.WriteLine(LexemTable.Count);
+            for (int i = 0; i < LexemTable.Count; i++)
+                Console.WriteLine(LexemTable[i].LexName);
             Console.ReadKey();
         }
     }
