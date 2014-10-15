@@ -1,0 +1,11 @@
+{
+int a,b
+scan(b)
+a=10
+do
+if(b<0)
+moveto escape
+b=b+1
+while(b<a)
+escape: 
+}

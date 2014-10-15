@@ -1,0 +1,6 @@
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe.config
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\bin\Debug\Аналізатор.pdb
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csprojResolveAssemblyReference.cache
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.exe
+c:\users\студент\documents\visual studio 2012\Projects\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
