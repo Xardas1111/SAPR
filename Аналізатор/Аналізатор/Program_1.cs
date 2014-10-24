@@ -8,84 +8,85 @@ namespace Аналізатор
 {
     partial class Program
     {
-
-        static int LexemNumber = 0;
-        static int NumberOfLines = 0;
-        static int ConstCodeNumber = 0;
-        static int IdCodeNumber = 0;
-        static string[] lexem = { "int", "real", "print", "scan", "while", "do", "if", "moveto", "=", "<>", "<=", ">=", "<", ">", "==", "AND", "OR", ",", "+", "-", "*", "/", "{", "}", "(", ")", ":", "NOT" };
-        static string[] terminal = { "int", "real", "print", "scan", "while", "do", "if", "moveto", "AND", "OR", "NOT" };
-        static string[] separator = { "=", "<>", "<=", ">=", "<", ">", "==", ",", "+", "-", "*", "/", "{", "}", "(", ")", ":", " " };
-        struct Lexem 
+        
+        static bool IsInitialized(string name, out string type)
         {
-            public int Number;
-            public int LineNumber;
-            public string LexName;
-            public int Code;
-            public int IdCode;
-            public Lexem(int Number, int LineNumber, string LexName, int Code, int IdCode) 
-            { 
-                this.Number = Number;
-                this.LineNumber = LineNumber;
-                this.LexName = LexName;
-                this.Code = Code;
-                this.IdCode = IdCode;
-            }
-        }
-
-        struct Id 
-        {
-            public string IdName;
-            public int IdCode;
-            public string IdType;
-            public Id(string IdName, int IdCode, string IdType) 
-            { 
-                this.IdName = IdName;
-                this.IdCode = IdCode;
-                this.IdType = IdType;
-            }
-        }
-
-        struct Const
-        {
-            public string ConstName;
-            public int ConstCode;
-            public Const(string ConstName, int ConstCode)
+            type = "";
+            int varinit = 0;
+            int vr = 0;
+            for (int i = LexemTable.Count - 1; i >= 0; i--)
             {
-                this.ConstName = ConstName;
-                this.ConstCode = ConstCode;
+                int j = i;
+                List<Lexem> Sublist = new List<Lexem>();
+                while ((j != -1) && (LexemTable[j].LineNumber == LexemTable[i].LineNumber))
+                {
+                    Sublist.Add(LexemTable[j]);
+                    j--;
+                }
+                bool key = true;
+                if (LexemTable[i].LineNumber == NumberOfLines)
+                    for (int z = 0; z < Sublist.Count; z++)
+                    {
+                        if (Sublist[z].LexName == name) key = false;
+                        if (((Sublist[z].LexName == "int") || (Sublist[z].LexName == "real")) && (key == true))
+                        {
+                            type = Sublist[z].LexName;
+                            varinit++;
+                        }
+                    }
+                else for (int k = 0; k < Sublist.Count; k++)
+                    {
+                        if ((Sublist[k].LexName == name))
+                        {
+                            for (int z = k + 1; z < Sublist.Count; z++)
+                            {
+                                if (Sublist[z].LexName == name) key = false;
+                                if (((Sublist[z].LexName == "int") || (Sublist[z].LexName == "real")) && (key == true))
+                                {
+                                    type = Sublist[z].LexName;
+                                    varinit++;
+                                }
+                            }
+                        }
+                    }
+                i = ++j;
             }
+            if ((varinit == 1))
+                return true;
+            return false;
         }
-        static List<Lexem> LexemTable = new List<Lexem>();
-        static List<Id> IdTable = new List<Id>();
-        static List<Const> ConstTable = new List<Const>();
+
         static bool IsSeparator(string sub) 
         {
             for (int i = 0; i < separator.Length; i++)
-                if (sub == separator[i]) return true;
+                if (sub == separator[i]) 
+                    return true;
             return false;
         }
 
         static bool IsLexem(string sub)
         {
             for (int i = 0; i < lexem.Length; i++)
-                if (sub == lexem[i]) return true;
+                if (sub == lexem[i]) 
+                    return true;
             return false;
         }
 
         static bool IsTerminal(string sub)
         {
             for (int i = 0; i < terminal.Length; i++)
-                if (sub == terminal[i]) return true;
+                if (sub == terminal[i]) 
+                    return true;
             return false;
         }
 
         static bool IsId(string sub) 
         {
-            if ((Char.IsLower(sub, 0)) || (Char.IsUpper(sub, 0)))
+            if ((sub[0] >= 65) && (sub[0] <= 90) || (sub[0] >= 97) && (sub[0] <= 122))
                 for (int i = 1; i < sub.Length; i++)
                 {
-                    if (!(Char.IsLower(sub, i)) && !(Char.IsUpper(sub, i)) && !(Char.IsDigit(sub,i))) return false;
+                    if (!((sub[i] >= 65) && (sub[i] <= 90)) && !((sub[i] >= 97) && (sub[i] <= 122)) && !((sub[i] >= 48) && (sub[i] <= 570))) 
+                        return false;
                 }
             else return false;
             return true;
@@ -93,14 +94,27 @@ namespace Аналізатор
 
         static bool IsConst(string sub) 
         {
-            if (!Char.IsDigit(sub, 0)) return false;
+            if (!((sub[0] >= 48) && (sub[0] <= 57))) 
+                return false;
             bool point = false;
+            if (sub[sub.Length - 1] == '.') 
+                return false;
             for (int i = 1; i < sub.Length; i++) 
             {
-                if (sub[sub.Length - 1] == '.') return false;
-                if (!Char.IsDigit(sub, i) || (point && (Char.IsDigit(sub, i)))) return false;
+                if (!((sub[i] >= 48) && (sub[i] <= 57)) && (point && (sub[i] == 46))) 
+                    return false;
                 if (sub[i] == '.')
                     point = true;
+            }
+            return true;
+        }
+
+        static bool IsValid(string sub) 
+        {
+            for (int i = 0; i < sub.Length; i++) 
+            {
+                if (!(sub[i] == 46) && !((sub[i] >= 65) && (sub[i] <= 90)) && !((sub[i] >= 97) && (sub[i] <= 122)) && !((sub[i] >= 48) && (sub[i] <= 57)) && !(IsSeparator(Convert.ToString(sub[i])))) 
+                    return false;
             }
             return true;
         }
@@ -117,15 +131,49 @@ namespace Аналізатор
 
             if (IsId(name)) 
             {
-                LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, name, 46, ++IdCodeNumber));
-                IdTable.Add(new Id(name, IdCodeNumber, "int"));
+                string type;
+                if (IsInitialized(name, out type))
+                {
+                    int code = 0 ;
+                    bool key = false;
+                    for (int i = 0; i < IdTable.Count; i++)
+                        if ((name == IdTable[i].IdName))
+                        {
+                            if (type != IdTable[i].IdType) return false;
+                            key = true;
+                            code = IdTable[i].IdCode;
+                            break;
+                        }
+                    if (!key)
+                    {
+                        IdTable.Add(new Id(name, ++IdCodeNumber, type));
+                        code = IdCodeNumber;
+                    }
+                    LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, name, 46, code));
+                }
+                else return false;
                 return true;
             }
 
             if (IsConst(name))
             {
-                LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, name, 47, ++ConstCodeNumber));
-                IdTable.Add(new Id(name, ConstCodeNumber, "int"));
+                bool key = false;
+                int Number = 0;
+                for (int i = 0; i < ConstCodeNumber; i++) 
+                {
+                    if (ConstTable[i].ConstName == name)
+                    {
+                        key = true;
+                        Number = ConstTable[i].ConstCode;
+                        break;
+                    }
+                }
+                if (!key)
+                {
+                    ConstTable.Add(new Const(name, ++ConstCodeNumber));
+                    Number = ConstCodeNumber;
+                }
+                LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, name, 47, Number));
                 return true;
             }
             return false;

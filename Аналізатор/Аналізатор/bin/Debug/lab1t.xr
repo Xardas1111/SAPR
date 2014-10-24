@@ -1,11 +1,10 @@
 {
-int a,b
+int a
+int b,c,d,e,f 
 scan(b)
-a=10
-do
-if(b<0)
-moveto escape
+a=10.23
+[]do[]
 b=b+1
-while(b<a)
-escape: 
+while(b<10)
+print(b)
 }
