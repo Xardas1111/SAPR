@@ -85,7 +85,7 @@ namespace Аналізатор
             if ((sub[0] >= 65) && (sub[0] <= 90) || (sub[0] >= 97) && (sub[0] <= 122))
                 for (int i = 1; i < sub.Length; i++)
                 {
-                    if (!((sub[i] >= 65) && (sub[i] <= 90)) && !((sub[i] >= 97) && (sub[i] <= 122)) && !((sub[i] >= 48) && (sub[i] <= 570))) 
+                    if (!((sub[i] >= 65) && (sub[i] <= 90)) && !((sub[i] >= 97) && (sub[i] <= 122)) && !((sub[i] >= 48) && (sub[i] <= 57))) 
                         return false;
                 }
             else return false;
@@ -94,17 +94,20 @@ namespace Аналізатор
 
         static bool IsConst(string sub) 
         {
-            if (!((sub[0] >= 48) && (sub[0] <= 57))) 
+            if (!((sub[0] >= 48) && (sub[0] <= 57)) && (sub[0] != '-')) 
                 return false;
             bool point = false;
             if (sub[sub.Length - 1] == '.') 
                 return false;
             for (int i = 1; i < sub.Length; i++) 
             {
-                if (!((sub[i] >= 48) && (sub[i] <= 57)) && (point && (sub[i] == 46))) 
-                    return false;
-                if (sub[i] == '.')
+                if ((sub[i] == '.') && (!point))
+                {
                     point = true;
+                    continue;
+                }
+                if (!((sub[i] >= 48) && (sub[i] <= 57)) || (point && (sub[i] == '.')))
+                    return false;
             }
             return true;
         }

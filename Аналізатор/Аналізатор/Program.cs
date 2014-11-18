@@ -35,6 +35,10 @@ namespace Аналізатор
                         subline = ""; 
                         continue; 
                     }
+                    if ((subline == "-") && (line[i + 1] >= 46) && (line[i + 1] <= 57))
+                    {
+                        continue;
+                    }
                     if (IsSeparator(subline)) 
                     {
                         if (i < line.Length - 1)
@@ -108,6 +112,7 @@ namespace Аналізатор
                 Console.WriteLine("Build successful.");
                 str1.Close();
             }
+            int k = 1;
             Console.ReadKey();
         }
     }
