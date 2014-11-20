@@ -1,15 +1,14 @@
 {
 int A
-int b,,d,e,f 
+int b,d,e,f 
 scan(-A)
 A=10.23
 if A>b
 {
 A=9001
 }
-[]do[]
-
-b=b+-1
+do
+b=b+1
 while(b<-10)
-print(-10.123f)
+print(-10.123)
 }

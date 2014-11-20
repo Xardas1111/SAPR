@@ -13,7 +13,6 @@ namespace Аналізатор
         {
             type = "";
             int varinit = 0;
-            int vr = 0;
             for (int i = LexemTable.Count - 1; i >= 0; i--)
             {
                 int j = i;

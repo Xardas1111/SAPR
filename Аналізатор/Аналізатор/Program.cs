@@ -13,7 +13,9 @@ namespace Аналізатор
         {
             
             string line;
-            StreamReader str = new StreamReader(@"lab1t.xr");
+            Console.WriteLine("The way: ");
+            string path = @"labtest.xr";
+            StreamReader str = new StreamReader(path);
             bool key = true;
             while (!str.EndOfStream && (key == true))
             {
@@ -100,19 +102,21 @@ namespace Аналізатор
             str.Close();
             if (key)
             {
-                StreamWriter str1 = new StreamWriter(@"labt.txt");
-                for (int i = 0; i < LexemTable.Count; i++)
-                    str1.WriteLine("{0,-8} {1,-10} {2,-16} {3,-10} {4,-10}", LexemTable[i].Number, LexemTable[i].LineNumber, LexemTable[i].LexName, LexemTable[i].Code, LexemTable[i].IdCode);
-                str1.WriteLine("//////////////////////////");
-                for (int i=0;i<ConstTable.Count;i++)
-                    str1.WriteLine("{0,-12} {1,-8}", ConstTable[i].ConstName, ConstTable[i].ConstCode);
-                str1.WriteLine("//////////////////////////");
-                for (int i = 0; i < IdTable.Count; i++)
-                    str1.WriteLine("{0,-12} {1,-8} {2,-8}", IdTable[i].IdName, IdTable[i].IdCode, IdTable[i].IdType);
-                Console.WriteLine("Build successful.");
-                str1.Close();
+                Console.WriteLine("Build Successful.");
+                Parser parser = new Parser(LexemTable);
+                try
+                {
+                    if (parser.IsDefined())
+                    {
+                        if (parser.IsAssign())
+                        Console.WriteLine("All is Correct.");
+                    }
+                }
+                catch (ApplicationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
-            int k = 1;
             Console.ReadKey();
         }
     }

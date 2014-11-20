@@ -6,6 +6,46 @@ using System.Threading.Tasks;
 
 namespace Аналізатор
 {
+    public struct Lexem
+    {
+        public int Number;
+        public int LineNumber;
+        public string LexName;
+        public int Code;
+        public int IdCode;
+        public Lexem(int Number, int LineNumber, string LexName, int Code, int IdCode)
+        {
+            this.Number = Number;
+            this.LineNumber = LineNumber;
+            this.LexName = LexName;
+            this.Code = Code;
+            this.IdCode = IdCode;
+        }
+    }
+
+    struct Id
+    {
+        public string IdName;
+        public int IdCode;
+        public string IdType;
+        public Id(string IdName, int IdCode, string IdType)
+        {
+            this.IdName = IdName;
+            this.IdCode = IdCode;
+            this.IdType = IdType;
+        }
+    }
+
+    struct Const
+    {
+        public string ConstName;
+        public int ConstCode;
+        public Const(string ConstName, int ConstCode)
+        {
+            this.ConstName = ConstName;
+            this.ConstCode = ConstCode;
+        }
+    }
     partial class Program
     {
         static int LexemNumber = 0;
@@ -18,46 +58,6 @@ namespace Аналізатор
         static string[] separator = { "=", "<>", "<=", ">=", "<", ">", "==", ","
                                         , "+", "-", "*", "/", "{", "}", "(", ")", " ", "\t", "[", "]" };
 
-        struct Lexem
-        {
-            public int Number;
-            public int LineNumber;
-            public string LexName;
-            public int Code;
-            public int IdCode;
-            public Lexem(int Number, int LineNumber, string LexName, int Code, int IdCode)
-            {
-                this.Number = Number;
-                this.LineNumber = LineNumber;
-                this.LexName = LexName;
-                this.Code = Code;
-                this.IdCode = IdCode;
-            }
-        }
-
-        struct Id
-        {
-            public string IdName;
-            public int IdCode;
-            public string IdType;
-            public Id(string IdName, int IdCode, string IdType)
-            {
-                this.IdName = IdName;
-                this.IdCode = IdCode;
-                this.IdType = IdType;
-            }
-        }
-
-        struct Const
-        {
-            public string ConstName;
-            public int ConstCode;
-            public Const(string ConstName, int ConstCode)
-            {
-                this.ConstName = ConstName;
-                this.ConstCode = ConstCode;
-            }
-        }
         static List<Lexem> LexemTable = new List<Lexem>();
         static List<Id> IdTable = new List<Id>();
         static List<Const> ConstTable = new List<Const>();
