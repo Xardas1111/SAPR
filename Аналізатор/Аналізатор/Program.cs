@@ -106,9 +106,8 @@ namespace Аналізатор
                 Parser parser = new Parser(LexemTable);
                 try
                 {
-                    if (parser.IsDefined())
+                    if (parser.IsIf())
                     {
-                        if (parser.IsAssign())
                         Console.WriteLine("All is Correct.");
                     }
                 }

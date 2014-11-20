@@ -44,6 +44,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Parser_1.cs" />
     <Compile Include="Parser_2.cs" />
+    <Compile Include="Parser_3.cs" />
     <Compile Include="Program_1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program_2.cs" />
