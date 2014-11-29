@@ -8,6 +8,8 @@ namespace Аналізатор
 {
     public partial class Parser
     {
+        int opening_bracket = 0;
+        int closing_bracket = 0;
         List<Lexem> lexemlist;
         static int lexemcount;
         public Parser(List<Lexem> lexemlist) 
@@ -18,6 +20,20 @@ namespace Аналізатор
 
         void MoveToNextLexem() 
         {
+            if (lexemcount < lexemlist.Count)
+            {
+                if (lexemlist[lexemcount].Code == 22)
+                {
+                    opening_bracket++;
+                }
+                else 
+                { 
+                    if (lexemlist[lexemcount].Code == 23)
+                    {
+                        closing_bracket++;
+                    }
+                }
+            }
             lexemcount++;
         }
 
@@ -27,7 +43,8 @@ namespace Аналізатор
                 return new Lexem(){LineNumber = lexemlist[lexemlist.Count-1].LineNumber};
             return lexemlist[lexemcount];
         }
-        public bool IsIdList() 
+
+        public bool IsIdList()
         {
             if (GetLexem().Code == 46)
             {
@@ -35,22 +52,24 @@ namespace Аналізатор
                 if (GetLexem().Code == 17)
                 {
                     MoveToNextLexem();
-                    if (!IsIdList())
+                    if (IsIdList())
                     {
-                        throw new ApplicationException("Need a variable in line " + GetLexem().LineNumber);
+                        return true;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Wrong syntax in line " + GetLexem().LineNumber);
                     }
                 }
                 else
                 {
                     return true;
-                };
+                }
             }
-
-            else
+            else 
             {
-                throw new ApplicationException("Need a variable in line " + GetLexem().LineNumber);
+                return false;
             }
-            return true;
         }
 
         public bool IsDefined() 
@@ -69,7 +88,7 @@ namespace Аналізатор
             }
             else 
             {
-                throw new ApplicationException("Need a type in line " + GetLexem().LineNumber);
+                return false;
             }
         }
 

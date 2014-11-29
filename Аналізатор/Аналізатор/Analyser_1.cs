@@ -46,7 +46,7 @@ namespace Аналізатор
             this.ConstCode = ConstCode;
         }
     }
-    partial class Program
+    partial class Analyser
     {
         static int LexemNumber = 0;
         static int NumberOfLines = 0;
